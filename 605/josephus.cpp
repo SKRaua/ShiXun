@@ -55,6 +55,7 @@ int main()
         if (boy[i] != 0)
         {
             cout << boy[i] << " is the winer." << endl;
+            break;
         }
     }
     system("pause");
