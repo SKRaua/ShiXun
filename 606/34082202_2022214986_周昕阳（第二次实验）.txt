@@ -1,0 +1,226 @@
+**********************************
+2.4 面向对象使用链表实现Josephus问题
+**********************************
+//调试通过的可运行程序源代码
+
+**********************************
+//Boy.java
+
+package Josephus;
+
+/**
+ * The Boy class of the Josephus.
+ * 
+ * @author Xinyang Zhou
+ * @version 1.0
+ */
+public class Boy {
+    // 小孩编号
+    private int code;
+    // 下一个小孩
+    private Boy pNext;
+
+    /**
+     * 构造小孩
+     * 
+     * @param pPosition 用于连接为上一个小孩
+     * @param id        小孩编号
+     */
+    public Boy(Boy pPosition, int id) {
+        code = id;
+        if (pPosition == null) {
+            this.pNext = this;// 只有一个小孩时，自己指向自己
+        } else {
+            this.pNext = pPosition.pNext;// 插入到小孩pPosition的后面
+            pPosition.pNext = this;
+        }
+    }
+
+    /**
+     * 小孩离开
+     * 
+     * @param pPosition 离开小孩的上一个
+     */
+    public void leave(Boy pPosition) {
+        pPosition.pNext = this.pNext;// 上一个小孩的下一个接为离开小孩的下一个
+        System.out.println(code + "离开");
+    }
+
+    /**
+     * 打印小孩ID
+     */
+    public void print() {
+        System.out.print("ID: " + code);
+    }
+
+    /**
+     * 下一个小孩
+     * 
+     * @return 下一个小孩
+     */
+    public Boy next() {
+        return pNext;
+    }
+
+}
+
+**********************************
+//Jose.java
+
+package Josephus;
+
+/**
+ * The Jose class of the Josephus.
+ * 
+ * @author Xinyang Zhou
+ * @version 1.0
+ */
+public class Jose {
+    // 小孩总数
+    private int numOfBoys;
+
+    // 小孩间隔
+    private int m;
+
+    // 胜利的小孩
+    private Boy win;
+
+    // 小孩圆圈
+    private Ring boys;
+
+    /**
+     * josephus问题的数据
+     * 
+     * @param numOfBoys 小孩总数
+     * @param interval  间隔数
+     */
+    public Jose(int numOfBoys, int interval) {
+        this.numOfBoys = numOfBoys;
+        this.m = interval;
+        this.boys = new Ring(this.numOfBoys);// 小孩围一圈
+    }
+
+    /**
+     * 游戏开始
+     * 
+     * @return 获胜小孩
+     */
+    public Boy gameBegin() {
+        win = boys.getWinner(m);
+        return win;
+    }
+}
+
+**********************************
+//Ring.java
+
+package Josephus;
+
+/**
+ * The Ring class of the Josephus.完成围小孩，数小孩，得到获胜小孩。
+ * 
+ * @author XinYang Zhou
+ * @version 1.0
+ */
+public class Ring {
+
+    // 第一个小孩
+    private Boy pFirst;
+
+    // 现在的小孩
+    private Boy pCurrent;
+    // 上一个小孩
+    private Boy pLast;
+
+    /**
+     * 小孩围城圈
+     * 
+     * @param numOfBoys 小孩总数
+     */
+    public Ring(int numOfBoys) {
+        pFirst = new Boy(null, 1);// 第一个小孩
+
+        // 依次围上其他小孩
+        Boy pNewBoy = pFirst;
+        for (int i = 2; i <= numOfBoys; i++) {
+            pNewBoy = new Boy(pNewBoy, i);
+        }
+        // 将pCurrent移至最后一个小孩使得第一次数数pCurrent移到第一个
+        pCurrent = pNewBoy;
+    }
+
+    /**
+     * 得到获胜小孩
+     * 
+     * @param m 间隔数
+     * @return 获胜小孩
+     */
+    public Boy getWinner(int m) {
+        // 数小孩,知道只剩1个小孩
+        while (pCurrent != pCurrent.next()) {
+            // 每次数小孩的间隔为m。
+            countUpTo(m);
+        }
+        // 返回获胜者
+        return pCurrent;
+    }
+
+    /**
+     * 往下数m个小孩，数到的小孩离开。
+     * 
+     * @param m 间隔数
+     */
+    private void countUpTo(int m) {
+        // 往下数m个小孩
+        for (int i = 0; i < m; i++) {
+            pLast = pCurrent;
+            pCurrent = pCurrent.next();
+        }
+
+        // 数到的小孩离开，同时pCurrent回到上一个小孩
+        pCurrent.leave(pLast);
+        pCurrent = pLast;
+    }
+}
+
+**********************************
+//Josephus.java
+
+package Josephus;
+
+import java.util.Scanner;
+
+/**
+ * Josephus game
+ * 
+ * @author xinyang Zhou
+ * @version 1.0
+ */
+public class Josephus {
+    /**
+     * 运行Josephus问题
+     * 
+     * @param args A reference to a string array containing command-line arguments
+     */
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int numOfBoys;// 小孩总数
+        int interval;// 小孩间隔
+        Boy winnerBoy;// 获胜小孩
+
+        System.out.println("*********************");
+        System.out.println("这里是Josephus运算器!");
+
+        System.out.print("请输入小孩个数：");
+        numOfBoys = input.nextInt();
+
+        System.out.print("请输入间隔：");
+        interval = input.nextInt();
+
+        winnerBoy = new Jose(numOfBoys, interval).gameBegin();
+        System.out.print("获胜小孩");
+        winnerBoy.print();
+
+        input.close();
+    }
+}
