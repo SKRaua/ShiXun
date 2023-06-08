@@ -6,7 +6,7 @@ package FlyMe2TheMoon2;
  * @author xinyang Zhou
  * @version 2.0
  */
-public class mainFlyMe2TheMoon {
+public class mainFighter {
     /**
      * main函数（主模块）
      * 
@@ -14,11 +14,11 @@ public class mainFlyMe2TheMoon {
      */
     public static void main(String[] args) {
         System.out.println("这里是打飞机小游戏~~");
-        // 实例操作类
-        Operate FlyMe2TheMoon = new Operate();
-
+        // 实例打飞机类
+        Fighter FlyMe2TheMoon = new Fighter();
+        // 画出初始的图像
+        FlyMe2TheMoon.drawPicture();
         // 打飞机游戏开始运作
         FlyMe2TheMoon.operateFighter();
-
     }
 }

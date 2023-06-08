@@ -1,4 +1,4 @@
-package FlyMe2TheMoon2;
+package FlyMe2TheMoon3;
 
 import java.util.ArrayList;
 import java.util.Scanner;

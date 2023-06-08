@@ -1,4 +1,4 @@
-package FlyMe2TheMoon2;
+package FlyMe2TheMoon4;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * The Picture class of the FlyMe2TheMoon.
  * 
  * @author Xinyang Zhou
- * @version 2.0
+ * @version 4.0
  */
 public class Picture {
 
@@ -39,15 +39,18 @@ public class Picture {
     /**
      * 画图像
      * 
-     * @param fighter_x     飞机x位置
-     * @param fighter_y     飞机y位置
+     * @param fighter       飞机
      * @param bullets       子弹
      * @param enemyFighters 敌机
      * @param score         分数
-     * @param HP            生命值
      */
-    public void drawer(int fighter_x, int fighter_y, ArrayList<Bullet> bullets,
-            ArrayList<EnemyFighter> enemyFighters, int score, int HP) {
+    public void drawer(Fighter fighter, ArrayList<Bullet> bullets, ArrayList<EnemyFighter> enemyFighters) {
+        String SuperBullet;
+        if (fighter.superBulletGetter()) {
+            SuperBullet = "Ready";// 超级子弹已装填
+        } else {
+            SuperBullet = "Not Ready";
+        }
         for (int x = 0; x < height + 2; x++) {
             for (int y = 0; y < width + 2; y++) {
                 boolean printed = false;
@@ -59,13 +62,15 @@ public class Picture {
                 }
 
                 // 画出飞机
-                if (!printed && x == fighter_x && (y >= fighter_y - 2 && y <= fighter_y + 2)) {
+                if (!printed && x == fighter.fighter_xGetter()
+                        && (y >= fighter.fighter_yGetter() - 2 && y <= fighter.fighter_yGetter() + 2)) {
                     System.out.print("#");
                     printed = true;
-                } else if (!printed && x == fighter_x - 1 && y == fighter_y) {
+                } else if (!printed && x == fighter.fighter_xGetter() - 1 && y == fighter.fighter_yGetter()) {
                     System.out.print("A");
                     printed = true;
-                } else if (!printed && x == fighter_x + 1 && (y == fighter_y - 1 || y == fighter_y + 1)) {
+                } else if (!printed && x == fighter.fighter_xGetter() + 1
+                        && (y == fighter.fighter_yGetter() - 1 || y == fighter.fighter_yGetter() + 1)) {
                     System.out.print("I");
                     printed = true;
                 }
@@ -95,6 +100,8 @@ public class Picture {
             }
             System.out.println();
         }
-        System.out.println("|                              |分数：" + score + " HP: " + HP);
+        System.out.println(
+                "|                              |分数：" + fighter.scoreGetter() + "  |  HP: " + fighter.HPGetter()
+                        + "  |  Super Bullet: " + SuperBullet);
     }
 }

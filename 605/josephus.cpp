@@ -13,6 +13,7 @@ int main()
         boy[i] = i + 1;
     }
 
+    cout << "The number of boys: " << numOfBoy << endl;
     //输入小孩间隔
     int m; // Josephus问题中的间隔m
     cout << "please input the interval: ";

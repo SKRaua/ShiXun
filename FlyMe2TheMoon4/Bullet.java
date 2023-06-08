@@ -1,10 +1,10 @@
-package FlyMe2TheMoon2;
+package FlyMe2TheMoon4;
 
 /**
  * The Bullet class of the FlyMe2TheMoon.
  * 
  * @author Xinyang Zhou
- * @version 2.0
+ * @version 4.0
  */
 public class Bullet {
     private int bullet_x, bullet_y;// 子弹位置
