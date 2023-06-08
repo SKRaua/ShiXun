@@ -6,7 +6,7 @@ package FlyMe2TheMoon2;
  * @author xinyang Zhou
  * @version 2.0
  */
-public class mainFighter {
+public class mainFlyMe2TheMoon {
     /**
      * main函数（主模块）
      * 
