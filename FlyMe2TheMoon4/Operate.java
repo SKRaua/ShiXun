@@ -182,7 +182,6 @@ public class Operate implements KeyListener {
                 enemyFighters.remove(enemyFighters.get(i)); // 删除敌机
                 enemyFighters.add(new EnemyFighter()); // 产生新敌机
                 fighter.createFighter(); // 刷新飞机位置
-                fighter.setsuperBulletSetter(true);// 超级子弹装填
                 fighter.setHP(fighter.getHP() - 1);// 减少生命值
                 if (fighter.getHP() == 0) {
                     System.out.println("***飞机被摧毁，游戏结束！***");
