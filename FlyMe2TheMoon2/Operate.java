@@ -61,16 +61,13 @@ public class Operate {
                     ifEnemySurvive(bullets, enemyFighters);// 敌机是否存活
                     break;
                 }
-                case "super": {// 发射super子弹
-                    bullets.add(new Bullet(fighter.fighter_xGetter(), fighter.fighter_yGetter()));
-                    bullets.add(new Bullet(fighter.fighter_xGetter(), fighter.fighter_yGetter() - 1));
-                    bullets.add(new Bullet(fighter.fighter_xGetter(), fighter.fighter_yGetter() + 1));
-                    bullets.add(new Bullet(fighter.fighter_xGetter(), fighter.fighter_yGetter()));
-                    bullets.add(new Bullet(fighter.fighter_xGetter() - 1, fighter.fighter_yGetter() - 1));
-                    bullets.add(new Bullet(fighter.fighter_xGetter() - 1, fighter.fighter_yGetter() + 1));
-                    bullets.add(new Bullet(fighter.fighter_xGetter(), fighter.fighter_yGetter()));
-                    bullets.add(new Bullet(fighter.fighter_xGetter() - 2, fighter.fighter_yGetter() - 1));
-                    bullets.add(new Bullet(fighter.fighter_xGetter() - 2, fighter.fighter_yGetter() + 1));
+                case "b": {// 发射super子弹
+
+                    for (int x = 0; x < 4; x++) {
+                        for (int y = 0; y < 3; y++) {
+                            bullets.add(new Bullet(fighter.fighter_xGetter() - x, fighter.fighter_yGetter() + y - 1));
+                        }
+                    }
                     ifEnemySurvive(bullets, enemyFighters);// 敌机是否存活
                     break;
                 }
