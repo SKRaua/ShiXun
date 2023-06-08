@@ -9,15 +9,13 @@ public class Operate {
     private Fighter fighter;
     private Bullet bullet;
     private enemyFighter enemyFighter;
-    private Picture picture;
 
     public Operate() {
         fighter = new Fighter();
         bullet = new Bullet();
         enemyFighter = new enemyFighter();
-        picture = new Picture();
         // 打印初始图像
-        picture.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
+        fighter.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
                 bullet.bullet_xGetter(), bullet.bullet_yGetter(),
                 enemyFighter.enemy_xGetter(), enemyFighter.enemy_yGetter(),
                 bullet.scoreGetter(), fighter.HPGetter());
@@ -45,13 +43,13 @@ public class Operate {
                     break;
                 }
                 case "s": {// 下
-                    if (fighter.fighter_xGetter() < picture.heightGetter() - 1) {
+                    if (fighter.fighter_xGetter() < fighter.heightGetter() - 1) {
                         fighter.fighter_xSetter(fighter.fighter_xGetter() + 1);
                     }
                     break;
                 }
                 case "d": {// 右
-                    if (fighter.fighter_yGetter() < picture.widthGetter() - 2) {
+                    if (fighter.fighter_yGetter() < fighter.widthGetter() - 2) {
                         fighter.fighter_ySetter(fighter.fighter_yGetter() + 1);
                     }
                     break;
@@ -87,7 +85,7 @@ public class Operate {
         }
 
         // 更新图像
-        picture.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
+        fighter.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
                 bullet.bullet_xGetter(), bullet.bullet_yGetter(),
                 enemyFighter.enemy_xGetter(), enemyFighter.enemy_yGetter(),
                 bullet.scoreGetter(), fighter.HPGetter());
