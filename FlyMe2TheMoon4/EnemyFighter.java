@@ -9,7 +9,6 @@ import java.util.Random;
  * @version 4.0
  */
 public class EnemyFighter extends Picture {
-    private int enemy_x, enemy_y;// 敌机位置
 
     /**
      * 敌机构造器
@@ -18,22 +17,8 @@ public class EnemyFighter extends Picture {
         createEnemyFighter();
     }
 
-    /**
-     * @return 敌机x坐标
-     */
-    public int enemy_xGetter() {
-        return enemy_x;
-    }
-
-    /**
-     * @return 敌机y坐标
-     */
-    public int enemy_yGetter() {
-        return enemy_y;
-    }
-
     public void enemyFighterMove() {
-        enemy_x++; // 敌机移动
+        setX(getX() - 1); // 敌机移动
     }
 
     /**
@@ -42,7 +27,7 @@ public class EnemyFighter extends Picture {
     public void createEnemyFighter() {
         Random random = new Random();
         // 产生新敌机
-        enemy_x = 0;
-        enemy_y = (random.nextInt(super.widthGetter() - 4) + 3);// 宽度限制敌机出现位置
+        setX(0);
+        setY((random.nextInt(super.widthGetter() - 4) + 3));// 宽度限制敌机出现位置
     }
 }

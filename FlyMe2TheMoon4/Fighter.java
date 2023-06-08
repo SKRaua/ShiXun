@@ -8,7 +8,6 @@ package FlyMe2TheMoon4;
  */
 public class Fighter extends Picture {
 
-    private int fighter_x, fighter_y;// 飞机位置
     private int HP;// 飞机生命值
     private int score;// 分数
     private boolean superBullet;// 超级子弹是否装填
@@ -24,29 +23,11 @@ public class Fighter extends Picture {
     }
 
     /**
-     * 设置飞机x坐标
-     * 
-     * @param fighter_x 飞机x坐标
-     */
-    public void fighter_xSetter(int fighter_x) {
-        this.fighter_x = fighter_x;
-    }
-
-    /**
-     * 设置飞机y坐标
-     * 
-     * @param fighter_y 飞机y坐标
-     */
-    public void fighter_ySetter(int fighter_y) {
-        this.fighter_y = fighter_y;
-    }
-
-    /**
      * 设置飞机HP
      * 
      * @param HP 飞机HP
      */
-    public void HPSetter(int HP) {
+    public void setHP(int HP) {
         this.HP = HP;
     }
 
@@ -55,7 +36,7 @@ public class Fighter extends Picture {
      * 
      * @param score 分数
      */
-    public void scoreSetter(int score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -64,43 +45,29 @@ public class Fighter extends Picture {
      * 
      * @param superBullet 导弹是否装填
      */
-    public void superBulletSetter(boolean superBullet) {
+    public void setsuperBulletSetter(boolean superBullet) {
         this.superBullet = superBullet;
     }
 
     /**
      * @return 飞机HP
      */
-    public int HPGetter() {
+    public int getHP() {
         return HP;
     }
 
     /**
      * @return 得分
      */
-    public int scoreGetter() {
+    public int getScore() {
         return score;
     }
 
     /**
      * @return 是否装填super子弹
      */
-    public boolean superBulletGetter() {
+    public boolean getsuperBullet() {
         return superBullet;
-    }
-
-    /**
-     * @return 飞机的x坐标
-     */
-    public int fighter_xGetter() {
-        return fighter_x;
-    }
-
-    /**
-     * @return 飞机的y坐标
-     */
-    public int fighter_yGetter() {
-        return fighter_y;
     }
 
     /**
@@ -108,7 +75,7 @@ public class Fighter extends Picture {
      */
     public void createFighter() {
         // 飞机位置
-        fighter_x = super.heightGetter() - 5;
-        fighter_y = super.widthGetter() / 2;
+        super.setX(super.heightGetter() - 5);
+        super.setY(super.widthGetter() / 2);
     }
 }

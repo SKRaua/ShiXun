@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Picture {
 
     private int height, width;// 游戏界面尺寸
+    private int x, y;// 界面坐标
 
     /**
      * 构造游戏图像框架数据
@@ -37,6 +38,38 @@ public class Picture {
     }
 
     /**
+     * 设置x坐标
+     * 
+     * @param fighter_x x坐标
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * 设置y坐标
+     * 
+     * @param y y坐标
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * @return x坐标
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @return y坐标
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
      * 画图像
      * 
      * @param fighter       飞机
@@ -46,7 +79,7 @@ public class Picture {
      */
     public void drawer(Fighter fighter, ArrayList<Bullet> bullets, ArrayList<EnemyFighter> enemyFighters) {
         String SuperBullet;
-        if (fighter.superBulletGetter()) {
+        if (fighter.getsuperBullet()) {
             SuperBullet = "Ready";// 超级子弹已装填
         } else {
             SuperBullet = "Not Ready";
@@ -62,22 +95,22 @@ public class Picture {
                 }
 
                 // 画出飞机
-                if (!printed && x == fighter.fighter_xGetter()
-                        && (y >= fighter.fighter_yGetter() - 2 && y <= fighter.fighter_yGetter() + 2)) {
+                if (!printed && x == fighter.getX()
+                        && (y >= fighter.getY() - 2 && y <= fighter.getY() + 2)) {
                     System.out.print("#");
                     printed = true;
-                } else if (!printed && x == fighter.fighter_xGetter() - 1 && y == fighter.fighter_yGetter()) {
+                } else if (!printed && x == fighter.getX() - 1 && y == fighter.getY()) {
                     System.out.print("A");
                     printed = true;
-                } else if (!printed && x == fighter.fighter_xGetter() + 1
-                        && (y == fighter.fighter_yGetter() - 1 || y == fighter.fighter_yGetter() + 1)) {
+                } else if (!printed && x == fighter.getX() + 1
+                        && (y == fighter.getY() - 1 || y == fighter.getY() + 1)) {
                     System.out.print("I");
                     printed = true;
                 }
 
                 // 画出子弹
                 for (Bullet bullet : bullets) {
-                    if (!printed && x == bullet.bullet_xGetter() && y == bullet.bullet_yGetter()) {
+                    if (!printed && x == bullet.getX() && y == bullet.getY()) {
                         System.out.print("*");
                         printed = true;
                         break;
@@ -86,7 +119,7 @@ public class Picture {
 
                 // 画出敌机
                 for (EnemyFighter enemyFighter : enemyFighters) {
-                    if (!printed && x == enemyFighter.enemy_xGetter() && y == enemyFighter.enemy_yGetter()) {
+                    if (!printed && x == enemyFighter.getX() && y == enemyFighter.getY()) {
                         System.out.print("V");
                         printed = true;
                         break;
@@ -101,7 +134,7 @@ public class Picture {
             System.out.println();
         }
         System.out.println(
-                "|                              |分数：" + fighter.scoreGetter() + "  |  HP: " + fighter.HPGetter()
+                "|                              |分数：" + fighter.getScore() + "  |  HP: " + fighter.getHP()
                         + "  |  Super Bullet: " + SuperBullet);
     }
 }
