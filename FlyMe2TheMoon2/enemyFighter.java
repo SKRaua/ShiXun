@@ -2,6 +2,12 @@ package FlyMe2TheMoon2;
 
 import java.util.Random;
 
+/**
+ * The enemyFighter class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 2.0
+ */
 public class enemyFighter extends Picture {
     private int enemy_x, enemy_y;// 敌机位置
 

@@ -3,7 +3,10 @@ package FlyMe2TheMoon2;
 import java.util.Scanner;
 
 /**
- * 控制程序
+ * The Operate class of the FlyMe2TheMoon.（控制程序）
+ * 
+ * @author Xinyang Zhou
+ * @version 2.0
  */
 public class Operate {
     private Fighter fighter;

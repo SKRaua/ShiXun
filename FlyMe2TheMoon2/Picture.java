@@ -1,5 +1,11 @@
 package FlyMe2TheMoon2;
 
+/**
+ * The Picture class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 2.0
+ */
 public class Picture {
 
     private int height, width;// 游戏界面尺寸
