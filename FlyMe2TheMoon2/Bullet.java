@@ -6,24 +6,16 @@ package FlyMe2TheMoon2;
  * @author Xinyang Zhou
  * @version 2.0
  */
-public class Bullet {
+public class Bullet extends Fighter {
     private int bullet_x, bullet_y;// 子弹位置
-    private int score;// 分数
 
     /**
      * 子弹构造器
      */
     public Bullet() {
-        score = 0;// 初始分数为0
-    }
-
-    /**
-     * 设置分数
-     * 
-     * @param score 分数
-     */
-    public void scoreSetter(int score) {
-        this.score = score;
+        // 创造一个子弹
+        bullet_x = super.fighter_xGetter() - 2;
+        bullet_y = super.fighter_yGetter();
     }
 
     /**
@@ -56,13 +48,6 @@ public class Bullet {
      */
     public int bullet_yGetter() {
         return bullet_y;
-    }
-
-    /**
-     * @return 得分
-     */
-    public int scoreGetter() {
-        return score;
     }
 
     /**

@@ -1,6 +1,5 @@
-package FlyMe2TheMoon2;
+package GSnake;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,16 +9,12 @@ import java.util.Scanner;
  * @version 2.0
  */
 public class Operate {
-    private Fighter fighter;// 飞机
-    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();// 子弹
-    private ArrayList<enemyFighter> enemyFighters = new ArrayList<enemyFighter>();// 敌机
+    private Snack snack;
 
     public Operate() {
-        fighter = new Fighter();
-        enemyFighters.add(new enemyFighter());
+        snack = new Snack();
         // 打印初始图像
-        fighter.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
-                bullets, enemyFighters, fighter.scoreGetter(), fighter.HPGetter());
+        snack.drawPicture();
     }
 
     /**
@@ -27,8 +22,8 @@ public class Operate {
      */
     public void operateFighter() {
         Scanner Sc = new Scanner(System.in);
-        int speed = 0;// 控制敌机速度与敌机刷新
-        do {// 控制飞机移动与
+        int speed = 0;// 控制敌机速度
+        do {// 控制飞机移动
             String input = Sc.nextLine();
             switch (input) {
                 case "w": {// 上
@@ -56,22 +51,19 @@ public class Operate {
                     break;
                 }
                 case " ": {// 发射子弹
-                    bullets.add(new Bullet());
-                    ifEnemySurvive(bullets, enemyFighters);// 敌机是否存活
+                    bullet.bullet_xSetter(fighter.fighter_xGetter() - 2);
+                    bullet.bullet_ySetter(fighter.fighter_yGetter());
+                    ifEnemySurvive();
                     break;
                 }
             }
+            ifSurvive();// 飞机是否存活
 
-            for (enemyFighter enemyFighter : enemyFighters) {
-                ifSurvive(enemyFighter);// 飞机是否存活
-            }
-
-            // 子弹与飞机移动依赖与用户操作
-            pcOperate(speed);// 子弹与敌机运动
-            if (speed < 5) {
+            if (speed < 2) {
+                pcOperate(speed);// 子弹与敌机运动
                 speed++;
-            } else if (speed == 5) {
-                enemyFighters.add(new enemyFighter());// 添加飞机
+            } else if (speed == 2) {
+                pcOperate(speed);// 子弹与敌机运动
                 speed = 0;// 更新速度值
             }
         } while (fighter.HPGetter() > 0);
@@ -80,28 +72,26 @@ public class Operate {
 
     public void pcOperate(int speed) {
 
-        for (Bullet bullet : bullets) {
-            bullet.floatBullet(); // 子弹移动
-            ifEnemySurvive(bullets, enemyFighters);// 敌机是否存活
-        }
-
-        for (enemyFighter enemyFighter : enemyFighters) {
-            if (speed % 2 == 0) {// 达到敌机移动速度
-                enemyFighter.enemyFighterMove(); // 敌机移动
-                ifEnemySurvive(bullets, enemyFighters);// 敌机是否存活
-                ifSurvive(enemyFighter);// 飞机是否存活
-            }
+        bullet.floatBullet(); // 子弹移动
+        ifEnemySurvive();// 敌机是否存活
+        if (speed == 2) {// 达到敌机移动速度
+            enemyFighter.enemyFighterMove(); // 敌机移动
+            ifEnemySurvive();// 敌机是否存活
+            ifSurvive();// 飞机是否存活
         }
 
         // 更新图像
         fighter.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
-                bullets, enemyFighters, fighter.scoreGetter(), fighter.HPGetter());
+                bullet.bullet_xGetter(), bullet.bullet_yGetter(),
+                enemyFighter.enemy_xGetter(), enemyFighter.enemy_yGetter(),
+                bullet.scoreGetter(), fighter.HPGetter());
+
     }
 
     /**
      * 判断飞机是否存活
      */
-    public void ifSurvive(enemyFighter enemyFighter) {
+    public void ifSurvive() {
         // 飞机撞上敌机
         if ((enemyFighter.enemy_xGetter() == fighter.fighter_xGetter() - 1
                 && enemyFighter.enemy_yGetter() == fighter.fighter_yGetter())
@@ -123,17 +113,12 @@ public class Operate {
     /**
      * 判断敌机是否存活
      */
-    public void ifEnemySurvive(ArrayList<Bullet> bullets, ArrayList<enemyFighter> enemyFighters) {
-        for (Bullet bullet : bullets) {
-            for (enemyFighter enemyFighter : enemyFighters) {
-                if (bullet.bullet_xGetter() == enemyFighter.enemy_xGetter()
-                        && bullet.bullet_yGetter() == enemyFighter.enemy_yGetter()) {// 击中敌机
-                    bullet.scoreSetter(bullet.scoreGetter() + 1);// 加分
-                    bullet.bullet_xSetter(-2);// 取消子弹
-                    enemyFighter.createEnemyFighter();// 重置敌机
-                }
-            }
+    public void ifEnemySurvive() {
+        if (bullet.bullet_xGetter() == enemyFighter.enemy_xGetter()
+                && bullet.bullet_yGetter() == enemyFighter.enemy_yGetter()) {// 击中敌机
+            bullet.scoreSetter(bullet.scoreGetter() + 1);// 加分
+            bullet.bullet_xSetter(-2);// 取消子弹
+            enemyFighter.createEnemyFighter();// 重置敌机
         }
     }
-
 }

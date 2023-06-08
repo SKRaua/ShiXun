@@ -10,13 +10,15 @@ public class Fighter extends Picture {
 
     private int fighter_x, fighter_y;// 飞机位置
     private int HP;// 飞机生命值
+    private int score;// 分数
 
     /**
      * 构造Fighter
      */
     public Fighter() {
         createFighter();
-        HP = 5;
+        HP = 5;// 初始生命值为5
+        score = 0;// 初始分数为0
     }
 
     /**
@@ -47,10 +49,26 @@ public class Fighter extends Picture {
     }
 
     /**
+     * 设置分数
+     * 
+     * @param score 分数
+     */
+    public void scoreSetter(int score) {
+        this.score = score;
+    }
+
+    /**
      * @return 飞机HP
      */
     public int HPGetter() {
         return HP;
+    }
+
+    /**
+     * @return 得分
+     */
+    public int scoreGetter() {
+        return score;
     }
 
     /**
