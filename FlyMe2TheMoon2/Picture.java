@@ -47,29 +47,50 @@ public class Picture {
      * @param HP            生命值
      */
     public void drawer(int fighter_x, int fighter_y, ArrayList<Bullet> bullets,
-            ArrayList<enemyFighter> enemyFighters, int score, int HP) {
+            ArrayList<EnemyFighter> enemyFighters, int score, int HP) {
         for (int x = 0; x < height + 2; x++) {
             for (int y = 0; y < width + 2; y++) {
+                boolean printed = false;
+
+                // 输出边框
+                if (y == 0 || y == width + 1) {
+                    System.out.print("|");
+                    printed = true;
+                }
+
+                // 画出飞机
+                if (!printed && x == fighter_x && (y >= fighter_y - 2 && y <= fighter_y + 2)) {
+                    System.out.print("#");
+                    printed = true;
+                } else if (!printed && x == fighter_x - 1 && y == fighter_y) {
+                    System.out.print("A");
+                    printed = true;
+                } else if (!printed && x == fighter_x + 1 && (y == fighter_y - 1 || y == fighter_y + 1)) {
+                    System.out.print("I");
+                    printed = true;
+                }
+
+                // 画出子弹
                 for (Bullet bullet : bullets) {
-                    for (enemyFighter enemyFighter : enemyFighters) {
-                        if (y == 0 || y == width + 1) {// 输出边框
-                            System.out.print("|");
-                        } else if (x == fighter_x && (y >= fighter_y - 2 && y <= fighter_y + 2)) {// 画出飞机
-                            System.out.print("#");
-                        } else if (x == fighter_x - 1 && y == fighter_y) {// 画出飞机
-                            System.out.print("A");
-                        } else if (x == fighter_x + 1 && (y == fighter_y - 1 || y == fighter_y + 1)) {// 画出飞机
-                            System.out.print("I");
-                        } else if (x == bullet.bullet_xGetter() && y == bullet.bullet_yGetter()) {// 画出子弹
-                            System.out.print("*");
-                        } else if (x == enemyFighter.enemy_xGetter() && y == enemyFighter.enemy_yGetter()) {// 画出敌机
-                            System.out.print("V");
-                        } else {
-                            System.out.print(" ");// 输出空格
-                        }
+                    if (!printed && x == bullet.bullet_xGetter() && y == bullet.bullet_yGetter()) {
+                        System.out.print("*");
+                        printed = true;
                         break;
                     }
-                    break;
+                }
+
+                // 画出敌机
+                for (EnemyFighter enemyFighter : enemyFighters) {
+                    if (!printed && x == enemyFighter.enemy_xGetter() && y == enemyFighter.enemy_yGetter()) {
+                        System.out.print("V");
+                        printed = true;
+                        break;
+                    }
+                }
+
+                // 输出空格
+                if (!printed) {
+                    System.out.print(" ");
                 }
             }
             System.out.println();

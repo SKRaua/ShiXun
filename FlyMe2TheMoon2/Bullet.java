@@ -6,16 +6,16 @@ package FlyMe2TheMoon2;
  * @author Xinyang Zhou
  * @version 2.0
  */
-public class Bullet extends Fighter {
+public class Bullet {
     private int bullet_x, bullet_y;// 子弹位置
 
     /**
      * 子弹构造器
      */
-    public Bullet() {
+    public Bullet(int fighter_x, int fighter_y) {
         // 创造一个子弹
-        bullet_x = super.fighter_xGetter() - 2;
-        bullet_y = super.fighter_yGetter();
+        bullet_x = fighter_x - 2;
+        bullet_y = fighter_y;
     }
 
     /**

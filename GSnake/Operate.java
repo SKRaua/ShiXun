@@ -75,7 +75,7 @@ public class Operate {
         bullet.floatBullet(); // 子弹移动
         ifEnemySurvive();// 敌机是否存活
         if (speed == 2) {// 达到敌机移动速度
-            enemyFighter.enemyFighterMove(); // 敌机移动
+            EnemyFighter.enemyFighterMove(); // 敌机移动
             ifEnemySurvive();// 敌机是否存活
             ifSurvive();// 飞机是否存活
         }
@@ -83,7 +83,7 @@ public class Operate {
         // 更新图像
         fighter.drawer(fighter.fighter_xGetter(), fighter.fighter_yGetter(),
                 bullet.bullet_xGetter(), bullet.bullet_yGetter(),
-                enemyFighter.enemy_xGetter(), enemyFighter.enemy_yGetter(),
+                EnemyFighter.enemy_xGetter(), EnemyFighter.enemy_yGetter(),
                 bullet.scoreGetter(), fighter.HPGetter());
 
     }
@@ -93,13 +93,13 @@ public class Operate {
      */
     public void ifSurvive() {
         // 飞机撞上敌机
-        if ((enemyFighter.enemy_xGetter() == fighter.fighter_xGetter() - 1
-                && enemyFighter.enemy_yGetter() == fighter.fighter_yGetter())
-                || (enemyFighter.enemy_xGetter() == fighter.fighter_xGetter()
-                        && enemyFighter.enemy_yGetter() > fighter.fighter_yGetter() - 3
-                        && enemyFighter.enemy_yGetter() < fighter.fighter_yGetter() + 3)) {
+        if ((EnemyFighter.enemy_xGetter() == fighter.fighter_xGetter() - 1
+                && EnemyFighter.enemy_yGetter() == fighter.fighter_yGetter())
+                || (EnemyFighter.enemy_xGetter() == fighter.fighter_xGetter()
+                        && EnemyFighter.enemy_yGetter() > fighter.fighter_yGetter() - 3
+                        && EnemyFighter.enemy_yGetter() < fighter.fighter_yGetter() + 3)) {
             // 产生新敌机
-            enemyFighter.createEnemyFighter();
+            EnemyFighter.createEnemyFighter();
             // 刷新飞机位置
             fighter.createFighter();
             fighter.HPSetter(fighter.HPGetter() - 1);// 减少生命值
@@ -114,11 +114,11 @@ public class Operate {
      * 判断敌机是否存活
      */
     public void ifEnemySurvive() {
-        if (bullet.bullet_xGetter() == enemyFighter.enemy_xGetter()
-                && bullet.bullet_yGetter() == enemyFighter.enemy_yGetter()) {// 击中敌机
+        if (bullet.bullet_xGetter() == EnemyFighter.enemy_xGetter()
+                && bullet.bullet_yGetter() == EnemyFighter.enemy_yGetter()) {// 击中敌机
             bullet.scoreSetter(bullet.scoreGetter() + 1);// 加分
             bullet.bullet_xSetter(-2);// 取消子弹
-            enemyFighter.createEnemyFighter();// 重置敌机
+            EnemyFighter.createEnemyFighter();// 重置敌机
         }
     }
 }

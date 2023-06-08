@@ -8,13 +8,13 @@ import java.util.Random;
  * @author Xinyang Zhou
  * @version 2.0
  */
-public class enemyFighter extends Picture {
+public class EnemyFighter extends Picture {
     private int enemy_x, enemy_y;// 敌机位置
 
     /**
      * 敌机构造器
      */
-    public enemyFighter() {
+    public EnemyFighter() {
         createEnemyFighter();
     }
 
@@ -33,9 +33,6 @@ public class enemyFighter extends Picture {
     }
 
     public void enemyFighterMove() {
-        if (enemy_x > super.heightGetter()) {// 过界重置敌机
-            createEnemyFighter();
-        }
         enemy_x++; // 敌机移动
     }
 
