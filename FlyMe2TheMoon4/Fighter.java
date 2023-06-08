@@ -19,7 +19,6 @@ public class Fighter extends Picture {
         createFighter();
         HP = 5;// 初始生命值为5
         score = 0;// 初始分数为0
-        superBullet = true;// 装填超级子弹
     }
 
     /**
@@ -77,5 +76,6 @@ public class Fighter extends Picture {
         // 飞机位置
         super.setX(super.heightGetter() - 5);
         super.setY(super.widthGetter() / 2);
+        superBullet = true;// 装填超级子弹
     }
 }
