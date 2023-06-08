@@ -18,7 +18,7 @@ public class EnemyFighter extends Picture {
     }
 
     public void enemyFighterMove() {
-        setX(getX() - 1); // 敌机移动
+        setX(getX() + 1); // 敌机移动
     }
 
     /**
