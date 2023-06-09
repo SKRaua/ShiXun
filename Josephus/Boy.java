@@ -35,7 +35,7 @@ public class Boy {
      */
     public void leave(Boy pPosition) {
         pPosition.pNext = this.pNext;// 上一个小孩的下一个接为离开小孩的下一个
-        System.out.println(code + "离开");
+        System.out.print(code + "离开，");
     }
 
     /**

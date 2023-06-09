@@ -40,11 +40,12 @@ public class Ring {
      * @return 获胜小孩
      */
     public Boy getWinner(int m) {
-        // 数小孩,知道只剩1个小孩
+        // 数小孩,直到只剩1个小孩
         while (pCurrent != pCurrent.next()) {
             // 每次数小孩的间隔为m。
             countUpTo(m);
         }
+        System.out.println();
         // 返回获胜者
         return pCurrent;
     }

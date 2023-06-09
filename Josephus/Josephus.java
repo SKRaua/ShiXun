@@ -29,8 +29,8 @@ public class Josephus {
         System.out.print("请输入间隔：");
         interval = input.nextInt();
 
-        winnerBoy = new Jose(numOfBoys, interval).gameBegin();
-        System.out.print("获胜小孩");
+        winnerBoy = new Jose(numOfBoys, interval).gameBegin();// 开始运算
+        System.out.print("获胜小孩：");
         winnerBoy.print();
 
         input.close();
