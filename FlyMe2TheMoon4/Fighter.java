@@ -44,7 +44,7 @@ public class Fighter extends Picture {
      * 
      * @param superBullet 导弹是否装填
      */
-    public void setsuperBulletSetter(boolean superBullet) {
+    public void setsuperBullet(boolean superBullet) {
         this.superBullet = superBullet;
     }
 

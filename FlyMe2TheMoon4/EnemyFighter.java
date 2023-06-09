@@ -3,7 +3,7 @@ package FlyMe2TheMoon4;
 import java.util.Random;
 
 /**
- * The enemyFighter class of the FlyMe2TheMoon.
+ * The EnemyFighter class of the FlyMe2TheMoon.
  * 
  * @author Xinyang Zhou
  * @version 4.0

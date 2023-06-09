@@ -40,7 +40,7 @@ public class Picture {
     /**
      * 设置x坐标
      * 
-     * @param fighter_x x坐标
+     * @param x x坐标
      */
     public void setX(int x) {
         this.x = x;
@@ -77,7 +77,8 @@ public class Picture {
      * @param enemyFighters 敌机
      * @param score         分数
      */
-    public void drawer(Fighter fighter, ArrayList<Bullet> bullets, ArrayList<EnemyFighter> enemyFighters) {
+    public void drawer(Fighter fighter, ArrayList<Bullet> bullets,
+            ArrayList<EnemyFighter> enemyFighters, ArrayList<Boss> bosses) {
         String SuperBullet;
         if (fighter.getsuperBullet()) {
             SuperBullet = "Ready";// 超级子弹已装填
@@ -108,6 +109,19 @@ public class Picture {
                     printed = true;
                 }
 
+                // 画出Boss
+                for (Boss boss : bosses) {
+                    if (!printed && x == boss.getX() && y == boss.getY()) {
+                        System.out.print("V");
+                        printed = true;
+                        break;
+                    } else if (!printed && x == boss.getX() - 1 && y > boss.getY() - 2 && y < boss.getY() + 2) {
+                        System.out.print("=");
+                        printed = true;
+                        break;
+                    }
+                }
+
                 // 画出子弹
                 for (Bullet bullet : bullets) {
                     if (!printed && x == bullet.getX() && y == bullet.getY()) {
@@ -134,7 +148,23 @@ public class Picture {
             System.out.println();
         }
         System.out.println(
-                "|                              |分数：" + fighter.getScore() + "  |  HP: " + fighter.getHP()
-                        + "  |  Super Bullet: " + SuperBullet);
+                "|                              |分数：" + fighter.getScore() + " | HP: " + fighter.getHP()
+                        + " | Super Bullet: " + SuperBullet);
+    }
+
+    public void win() {
+        System.out.println("        *******        ");
+        System.out.println("     *************     ");
+        System.out.println("  *******************  ");
+        System.out.println(" ********************* ");
+        System.out.println("***********************");
+        System.out.println("Fly Me 2 The Moon ~~~~~");
+        System.out.println("***********************");
+        System.out.println(" ********************* ");
+        System.out.println("  *******************  ");
+        System.out.println("     *************     ");
+        System.out.println("        *******        ");
+        System.exit(0);
+
     }
 }
