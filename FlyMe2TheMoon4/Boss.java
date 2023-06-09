@@ -14,16 +14,14 @@ public class Boss extends EnemyFighter {
      */
     public Boss() {
         super();
-        HP = 50;
+        HP = 10;
     }
 
     /**
-     * 设置BossHP
-     * 
-     * @param HP BossHP
+     * 扣血
      */
-    public void setHP(int HP) {
-        this.HP = HP;
+    public void lossHP() {
+        HP--;
     }
 
     /**

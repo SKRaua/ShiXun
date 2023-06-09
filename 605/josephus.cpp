@@ -4,13 +4,13 @@ using namespace std;
 int main()
 {
     const int numOfBoy = 7; //小孩总数
-    int boy[numOfBoy];      //小孩数组
+    int boys[numOfBoy];     //小孩数组
 
     // n个小孩围成圈
-    int i = 0; //小孩位置索引
+    int i = 0; //小孩位置指示器
     for (i = 0; i < numOfBoy; i++)
     {
-        boy[i] = i + 1;
+        boys[i] = i + 1;
     }
 
     cout << "The number of boys: " << numOfBoy << endl;
@@ -22,7 +22,7 @@ int main()
     //输出开始时的小孩编号
     for (i = 0; i < numOfBoy; i++)
     {
-        cout << boy[i] << ",";
+        cout << boys[i] << ",";
     }
     cout << endl;
 
@@ -36,7 +36,7 @@ int main()
         {
             //将位置移到下一个小孩
             i = (i + 1) % numOfBoy;
-            while (boy[i] == 0)
+            while (boys[i] == 0)
             {
                 i = (i + 1) % numOfBoy;
             }
@@ -45,17 +45,17 @@ int main()
         } while (j > 0);
 
         //第m个小孩离开
-        cout << boy[i] << "'s out,"; //输出离开小孩编号
-        boy[i] = 0;                  //表示i小孩离开
+        cout << boys[i] << "'s out,"; //输出离开小孩编号
+        boys[i] = 0;                  //表示i小孩离开
     }
     cout << endl;
 
     //宣布获胜者
     for (i = 0; i < numOfBoy; i++)
     {
-        if (boy[i] != 0)
+        if (boys[i] != 0)
         {
-            cout << boy[i] << " is the winer." << endl;
+            cout << boys[i] << " is the winer." << endl;
             break;
         }
     }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Picture {
 
     private int height, width;// 游戏界面尺寸
-    private int x, y;// 界面坐标
+    private int x, y;// 界面坐标，继承给子类用于定位图像
 
     /**
      * 构造游戏图像框架数据

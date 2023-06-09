@@ -18,7 +18,9 @@ public class mainFighter {
         Fighter FlyMe2TheMoon = new Fighter();
         // 画出初始的图像
         FlyMe2TheMoon.drawPicture();
-        // 打飞机游戏开始运作
+        // 飞机操作台运作
         FlyMe2TheMoon.operateFighter();
+        // 子弹与飞机移动
+        FlyMe2TheMoon.pcOperate();
     }
 }

@@ -1,3 +1,374 @@
+********************************************************************
+3.4 面向过程实现打飞机小游戏
+********************************************************************
+//调试通过的可运行程序源代码
+
+********************************************************************
+//Picture.java
+
+package FlyMe2TheMoon4;
+
+import java.util.ArrayList;
+
+/**
+ * The Picture class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 4.0
+ */
+public class Picture {
+
+    private int height, width;// 游戏界面尺寸
+    private int x, y;// 界面坐标，继承给子类用于定位图像
+
+    /**
+     * 构造游戏图像框架数据
+     */
+    public Picture() {
+        // 游戏界面尺寸
+        height = 24;
+        width = 30;
+
+    }
+
+    /**
+     * @return 游戏高
+     */
+    public int heightGetter() {
+        return height;
+    }
+
+    /**
+     * @return 游戏宽
+     */
+    public int widthGetter() {
+        return width;
+    }
+
+    /**
+     * 设置x坐标
+     * 
+     * @param x x坐标
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * 设置y坐标
+     * 
+     * @param y y坐标
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * @return x坐标
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @return y坐标
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * 画图像
+     * 
+     * @param fighter       飞机
+     * @param bullets       子弹
+     * @param enemyFighters 敌机
+     * @param score         分数
+     */
+    public void drawer(Fighter fighter, ArrayList<Bullet> bullets,
+            ArrayList<EnemyFighter> enemyFighters, ArrayList<Boss> bosses) {
+        String SuperBullet;
+        if (fighter.getsuperBullet()) {
+            SuperBullet = "Ready";// 超级子弹已装填
+        } else {
+            SuperBullet = "Not Ready";
+        }
+        for (int x = 0; x < height + 2; x++) {
+            for (int y = 0; y < width + 2; y++) {
+                boolean printed = false;
+
+                // 输出边框
+                if (y == 0 || y == width + 1) {
+                    System.out.print("|");
+                    printed = true;
+                }
+
+                // 画出飞机
+                if (!printed && x == fighter.getX()
+                        && (y >= fighter.getY() - 2 && y <= fighter.getY() + 2)) {
+                    System.out.print("#");
+                    printed = true;
+                } else if (!printed && x == fighter.getX() - 1 && y == fighter.getY()) {
+                    System.out.print("A");
+                    printed = true;
+                } else if (!printed && x == fighter.getX() + 1
+                        && (y == fighter.getY() - 1 || y == fighter.getY() + 1)) {
+                    System.out.print("I");
+                    printed = true;
+                }
+
+                // 画出Boss
+                for (Boss boss : bosses) {
+                    if (!printed && x == boss.getX() && y == boss.getY()) {
+                        System.out.print("V");
+                        printed = true;
+                        break;
+                    } else if (!printed && x == boss.getX() - 1 && y > boss.getY() - 2 && y < boss.getY() + 2) {
+                        System.out.print("=");
+                        printed = true;
+                        break;
+                    }
+                }
+
+                // 画出子弹
+                for (Bullet bullet : bullets) {
+                    if (!printed && x == bullet.getX() && y == bullet.getY()) {
+                        System.out.print("*");
+                        printed = true;
+                        break;
+                    }
+                }
+
+                // 画出敌机
+                for (EnemyFighter enemyFighter : enemyFighters) {
+                    if (!printed && x == enemyFighter.getX() && y == enemyFighter.getY()) {
+                        System.out.print("V");
+                        printed = true;
+                        break;
+                    }
+                }
+
+                // 输出空格
+                if (!printed) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println(
+                "|                              |分数：" + fighter.getScore() + " | HP: " + fighter.getHP()
+                        + " | Super Bullet: " + SuperBullet);
+    }
+
+    public void win() {
+        System.out.println("            *******            ");
+        System.out.println("         *************         ");
+        System.out.println("      *******************      ");
+        System.out.println("     *********************     ");
+        System.out.println("    ***********************    ");
+        System.out.println("    Fly Me 2 The Moon ~~~~~    ");
+        System.out.println("    ***********************    ");
+        System.out.println("     *********************     ");
+        System.out.println("      *******************      ");
+        System.out.println("         *************         ");
+        System.out.println("            *******            ");
+        System.exit(0);
+
+    }
+}
+
+********************************************************************
+//Fighter.java
+
+package FlyMe2TheMoon4;
+
+/**
+ * The Fighter class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 4.0
+ */
+public class Fighter extends Picture {
+
+    private int HP;// 飞机生命值
+    private int score;// 分数
+    private boolean superBullet;// 超级子弹是否装填
+
+    /**
+     * 构造Fighter
+     */
+    public Fighter() {
+        createFighter();
+        HP = 5;// 初始生命值为5
+        score = 0;// 初始分数为0
+    }
+
+    /**
+     * 设置飞机HP
+     * 
+     * @param HP 飞机HP
+     */
+    public void setHP(int HP) {
+        this.HP = HP;
+    }
+
+    /**
+     * 设置分数
+     * 
+     * @param score 分数
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * 设置超级子弹
+     * 
+     * @param superBullet 导弹是否装填
+     */
+    public void setsuperBullet(boolean superBullet) {
+        this.superBullet = superBullet;
+    }
+
+    /**
+     * @return 飞机HP
+     */
+    public int getHP() {
+        return HP;
+    }
+
+    /**
+     * @return 得分
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * @return 是否装填super子弹
+     */
+    public boolean getsuperBullet() {
+        return superBullet;
+    }
+
+    /**
+     * 创造飞机（刷新飞机位置）
+     */
+    public void createFighter() {
+        // 飞机位置
+        super.setX(super.heightGetter() - 5);
+        super.setY(super.widthGetter() / 2);
+        superBullet = true;// 装填超级子弹
+    }
+}
+
+********************************************************************
+//Bullet.java
+
+package FlyMe2TheMoon4;
+
+/**
+ * The Bullet class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 4.0
+ */
+public class Bullet extends Picture {
+
+    /**
+     * 子弹构造器
+     */
+    public Bullet(int fighter_x, int fighter_y) {
+        // 创造一个子弹
+        setX(fighter_x - 2);
+        setY(fighter_y);
+    }
+
+    /**
+     * 子弹移动
+     */
+    public void floatBullet() {
+        setX(getX() - 1);// 子弹移动
+    }
+}
+
+********************************************************************
+//EnemyFighter.java
+
+package FlyMe2TheMoon4;
+
+import java.util.Random;
+
+/**
+ * The EnemyFighter class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 4.0
+ */
+public class EnemyFighter extends Picture {
+
+    /**
+     * 敌机构造器
+     */
+    public EnemyFighter() {
+        createEnemyFighter();
+    }
+
+    public void enemyFighterMove() {
+        setX(getX() + 1); // 敌机移动
+    }
+
+    /**
+     * 创造敌机（刷新敌机位置）
+     */
+    public void createEnemyFighter() {
+        Random random = new Random();
+        // 产生新敌机
+        setX(0);
+        setY((random.nextInt(super.widthGetter() - 4) + 3));// 宽度限制敌机出现位置
+    }
+}
+
+********************************************************************
+//Boss.java
+
+package FlyMe2TheMoon4;
+
+/**
+ * The Boss class of the FlyMe2TheMoon.
+ * 
+ * @author Xinyang Zhou
+ * @version 4.0
+ */
+public class Boss extends EnemyFighter {
+    private int HP;
+
+    /**
+     * 创造boss（刷新敌机位置）
+     */
+    public Boss() {
+        super();
+        HP = 10;
+    }
+
+    /**
+     * 扣血
+     */
+    public void lossHP() {
+        HP--;
+    }
+
+    /**
+     * @return BossHP
+     */
+    public int getHP() {
+        return HP;
+    }
+}
+
+********************************************************************
+//Operate.java
+
 package FlyMe2TheMoon4;
 
 import java.util.ArrayList;
@@ -261,4 +632,33 @@ public class Operate implements KeyListener {
     public void keyReleased(KeyEvent e) {
     }
 
+}
+
+********************************************************************
+//mainFlyMe2TheMoon.java
+
+package FlyMe2TheMoon4;
+
+/**
+ * main of FlyMe2TheMoon
+ * 
+ * @author xinyang Zhou
+ * @version 4.0
+ */
+public class mainFlyMe2TheMoon {
+    /**
+     * main函数（主模块）
+     * 
+     * @param args A reference to a string array containing command-line arguments
+     */
+    public static void main(String[] args) {
+        System.out.println("这里是打飞机小游戏~~");
+        // 实例操作类
+        Operate FlyMe2TheMoon = new Operate();
+
+        // 飞机操纵台启动
+        FlyMe2TheMoon.operateFighter();
+        // 敌机子弹开始运动
+        FlyMe2TheMoon.pcOperate();
+    }
 }
