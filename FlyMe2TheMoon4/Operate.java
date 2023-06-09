@@ -183,8 +183,7 @@ public class Operate implements KeyListener {
     /**
      * 判断飞机是否存活
      */
-    public void ifSurvive(Object enemy) {
-        ArrayList<EnemyFighter> enemyFighters = (ArrayList<EnemyFighter>) enemy;
+    public void ifSurvive(ArrayList<? extends EnemyFighter> enemyFighters) {
         for (int i = 0; i < enemyFighters.size(); i++) {
             if ((enemyFighters.get(i).getX() == fighter.getX() - 1
                     && enemyFighters.get(i).getY() == fighter.getY())

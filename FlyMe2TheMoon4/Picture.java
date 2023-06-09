@@ -153,17 +153,17 @@ public class Picture {
     }
 
     public void win() {
-        System.out.println("        *******        ");
-        System.out.println("     *************     ");
-        System.out.println("  *******************  ");
-        System.out.println(" ********************* ");
-        System.out.println("***********************");
-        System.out.println("Fly Me 2 The Moon ~~~~~");
-        System.out.println("***********************");
-        System.out.println(" ********************* ");
-        System.out.println("  *******************  ");
-        System.out.println("     *************     ");
-        System.out.println("        *******        ");
+        System.out.println("            *******        ");
+        System.out.println("         *************     ");
+        System.out.println("      *******************  ");
+        System.out.println("     ********************* ");
+        System.out.println("    ***********************");
+        System.out.println("    Fly Me 2 The Moon ~~~~~");
+        System.out.println("    ***********************");
+        System.out.println("     ********************* ");
+        System.out.println("      *******************  ");
+        System.out.println("         *************     ");
+        System.out.println("            *******        ");
         System.exit(0);
 
     }
