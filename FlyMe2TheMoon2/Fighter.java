@@ -125,7 +125,7 @@ public class Fighter implements KeyListener {
         frame.setSize(300, 100);// 大小
         frame.setVisible(true);// 可见
         frame.setResizable(false);// 不可改变大小
-        JLabel tips = new JLabel("上下左右箭头移动，空格发射超级子弹", null, 0);// 提示
+        JLabel tips = new JLabel("上下左右箭头移动，空格发射子弹", null, 0);// 提示
         frame.add(tips);
 
         frame.setFocusable(true);
@@ -190,7 +190,7 @@ public class Fighter implements KeyListener {
                 createBullet();// 创造子弹
                 floatBullet();// 子弹移动
                 ifEnemySurvive();// 敌机是否存活
-                enemyFighter();// 敌机移动
+                enemyFighterMove();// 敌机移动
                 ifSurvive();// 飞机是否存活
                 ifEnemySurvive();// 敌机是否存活
             }
@@ -224,12 +224,11 @@ public class Fighter implements KeyListener {
     /**
      * 敌机移动
      */
-    public void enemyFighter() {
+    public void enemyFighterMove() {
         for (int i = 0; i < enemys_x.size(); i++) {
             enemys_x.set(i, enemys_x.get(i) + 1);
             if (enemys_x.get(i) > height) {
-                // 产生新敌机
-                enemys_x.remove(i);// 移除飞机
+                enemys_x.remove(i);// 移除敌机
                 enemys_y.remove(i);
                 if (i != 0) {
                     i--;
@@ -247,13 +246,11 @@ public class Fighter implements KeyListener {
             if ((enemys_x.get(i) == fighter_x - 1 && enemys_y.get(i) == fighter_y)
                     || (enemys_x.get(i) == fighter_x && enemys_x.get(i) > fighter_y - 3
                             && enemys_x.get(i) < fighter_y + 3)) {
-                // 产生新敌机
                 enemys_x.remove(i);// 移除飞机
                 enemys_y.remove(i);
                 if (i != 0) {
                     i--;
                 }
-                createEnemy();
                 // 刷新飞机位置
                 fighter_x = height - 5;
                 fighter_y = width / 2;
@@ -284,7 +281,6 @@ public class Fighter implements KeyListener {
                     if (i != 0) {
                         i--;
                     }
-                    createEnemy();// 创造飞机
                 }
             }
         }

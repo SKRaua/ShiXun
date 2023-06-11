@@ -25,9 +25,9 @@ public class Operate implements KeyListener {
 
     public Operate() {
         fighter = new Fighter();// 实例飞机类
-        enemyFighters = new ArrayList<EnemyFighter>();// 实例敌机类
-        bullets = new ArrayList<Bullet>();// 实例子弹类
-        bosses = new ArrayList<Boss>();
+        enemyFighters = new ArrayList<EnemyFighter>();// 实例敌机类数组
+        bosses = new ArrayList<Boss>();// 实例Boss类数组
+        bullets = new ArrayList<Bullet>();// 实例子弹类数组
         fighter.drawer(fighter, bullets, enemyFighters, bosses); // 打印初始图像
     }
 
@@ -57,24 +57,32 @@ public class Operate implements KeyListener {
             case 87: {// W 上
                 if (fighter.getX() > 2) {
                     fighter.setX(fighter.getX() - 1);
+                    ifSurvive(enemyFighters);// 飞机是否存活
+                    ifSurvive(bosses);
                 }
                 break;
             }
             case 65: {// A 左
                 if (fighter.getY() > 3) {
                     fighter.setY(fighter.getY() - 1);
+                    ifSurvive(enemyFighters);// 飞机是否存活
+                    ifSurvive(bosses);
                 }
                 break;
             }
             case 83: {// S 下
                 if (fighter.getX() < fighter.heightGetter() - 1) {
                     fighter.setX(fighter.getX() + 1);
+                    ifSurvive(enemyFighters);// 飞机是否存活
+                    ifSurvive(bosses);
                 }
                 break;
             }
             case 68: {// D 右
                 if (fighter.getY() < fighter.widthGetter() - 2) {
                     fighter.setY(fighter.getY() + 1);
+                    ifSurvive(enemyFighters);// 飞机是否存活
+                    ifSurvive(bosses);
                 }
                 break;
             }
@@ -107,14 +115,12 @@ public class Operate implements KeyListener {
                 break;
             }
         }
-        ifSurvive(enemyFighters);// 飞机是否存活
-        ifSurvive(bosses);
         fighter.drawer(fighter, bullets, enemyFighters, bosses); // 更新图像
     }
 
     public void pcOperate() {
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {// 每200时间更新一次子弹移动并自动发射子弹，添加敌机
+        timer.scheduleAtFixedRate(new TimerTask() {// 每200ms更新一次子弹移动并自动发射子弹，添加敌机
             @Override
             public void run() {
                 bullets.add(new Bullet(fighter.getX(), fighter.getY())); // 自动发射子弹
@@ -132,15 +138,7 @@ public class Operate implements KeyListener {
             }
         }, 0, 200);
 
-        timer.scheduleAtFixedRate(new TimerTask() {// 每10000时间添加Boss
-            @Override
-            public void run() {
-                bosses.add(new Boss());
-
-            }
-        }, 0, 10000);
-
-        timer.scheduleAtFixedRate(new TimerTask() {// 每1000时间更新一次敌机运动
+        timer.scheduleAtFixedRate(new TimerTask() {// 每1s更新一次敌机运动
             @Override
             public void run() {
                 for (int i = 0; i < enemyFighters.size(); i++) {
@@ -162,23 +160,17 @@ public class Operate implements KeyListener {
                 ifEnemySurvive();// 敌机是否存活
                 ifSurvive(enemyFighters);// 飞机是否存活
                 ifSurvive(bosses);// Boss是否存活
-                fighter.drawer(fighter, bullets, enemyFighters, bosses);
+                fighter.drawer(fighter, bullets, enemyFighters, bosses);// 更新图像
             }
         }, 0, 1000);
 
-        timer.scheduleAtFixedRate(new TimerTask() {// 每4000时间刷新super子弹
+        timer.scheduleAtFixedRate(new TimerTask() {// 每4s刷新super子弹并添加敌机
             @Override
             public void run() {
                 fighter.setsuperBullet(true);
+                bosses.add(new Boss());
             }
         }, 0, 4000);
-
-        timer.scheduleAtFixedRate(new TimerTask() {// 更新图像
-            @Override
-            public void run() {
-                // fighter.drawer(fighter, bullets, enemyFighters, bosses);
-            }
-        }, 0, 2000);
     }
 
     /**
